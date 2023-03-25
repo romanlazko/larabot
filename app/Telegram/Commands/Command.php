@@ -52,6 +52,7 @@ abstract class Command
         return BotApi::sendMessage([
             'text'          => $text,
             'chat_id'       => $this->updates->getChat()->getId(),
+            'parse_mode'    => "Markdown"
         ]);
     }
 
