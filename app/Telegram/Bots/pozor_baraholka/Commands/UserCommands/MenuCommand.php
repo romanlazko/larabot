@@ -9,7 +9,7 @@ use App\Telegram\Entities\Update;
 
 class MenuCommand extends Command
 {
-    protected $name = 'menu';
+    protected static $name = '/menu';
 
     protected $enabled = true;
 

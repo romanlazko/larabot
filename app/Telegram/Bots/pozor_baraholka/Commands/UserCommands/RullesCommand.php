@@ -7,7 +7,7 @@ use App\Telegram\Commands\Command;
 use App\Telegram\Entities\Response;
 use App\Telegram\Entities\Update;
 
-class MenuCommand extends Command
+class RullesCommand extends Command
 {
     protected $name = 'rulles';
 
@@ -16,7 +16,7 @@ class MenuCommand extends Command
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array('🏠 Главное меню', 'menu', '')]
+            [array('🏠 Главное меню', MenuCommand::$name, '')]
         ]);
 
         $data = [
