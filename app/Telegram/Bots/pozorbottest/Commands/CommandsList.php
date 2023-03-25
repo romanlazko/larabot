@@ -39,12 +39,7 @@ class CommandsList extends DefaultCommandsList
             UserCommands\ShowMyAnnouncement::class      => ['show_announcement'],
             UserCommands\NonActualAnnouncement::class   => ['non_actual'],
         ],
-        'wishfull' => [
-            SupergroupCommands\DaCommand::class         => ['Да'],
-        ],
         'supergroup' => [
-            SupergroupCommands\StartCommand::class      => ['/start'],
-            SupergroupCommands\DaCommand::class         => ['Да'],
         ],
         'default'   => [
 
