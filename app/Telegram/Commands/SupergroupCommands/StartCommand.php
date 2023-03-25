@@ -2,9 +2,10 @@
 
 namespace App\Telegram\Commands\SupergroupCommands;
 
+use App\Telegram\BotApi;
 use App\Telegram\Commands\Command;
+use App\Telegram\Entities\Response;
 use App\Telegram\Entities\Update;
-use App\Telegram\Telegram;
 
 class StartCommand extends Command
 {
@@ -12,8 +13,8 @@ class StartCommand extends Command
 
     protected $enabled = true;
 
-    public function execute(Update $updates)
+    public function execute(Update $updates): Response
     {
-        // return $bot::sendMessage("It is work");
+        return BotApi::emptyResponse();
     }
 }
