@@ -2,7 +2,6 @@
 namespace App\Telegram;
 
 use App\Telegram\Exceptions\TelegramException;
-use App\Models\Bot;
 use App\Telegram\Commands\Command;
 use App\Telegram\Entities\Response;
 use App\Telegram\Entities\Update;
