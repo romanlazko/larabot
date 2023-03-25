@@ -21,7 +21,7 @@ class NewAnnouncement extends Command
                 array('Прага', 'type', Config::get('prague_channel')),
                 array('Брно', 'type', Config::get('brno_channel'))
             ],
-            [array('🏠 Главное меню', '/menu', '')]
+            [array('🏠 Главное меню', MenuCommand::$name, '')]
         ], 'city');
 
         $data = [
