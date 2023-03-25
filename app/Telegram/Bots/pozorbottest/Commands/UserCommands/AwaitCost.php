@@ -28,7 +28,7 @@ class AwaitCost extends Command
         }
 
         if (!is_numeric($text)){
-            $this->handleError("*Стоимость должна быть указана только цыфрами*");
+            $this->handleError("*Стоимость должна быть указана только цифрами*");
             return $this->bot->executeCommand('cost');
         }
 
