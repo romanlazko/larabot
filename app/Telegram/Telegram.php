@@ -45,7 +45,7 @@ class Telegram
         $this->botId = (int) $matches[1];
         $this->token = $token;
         BotApi::initialize($this);
-        $this->botFirstName = BotApi::getMe()->getResult()->getFirstName();
+        $this->botFirstName = BotApi::getMe()->getResult()->getUsername();
 
         DB::initialize($this);
         Config::initialize($this);
