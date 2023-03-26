@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Telegram\Bots\pozorbottest;
+namespace App\Telegram\Bots\pozor_baraholka_bot;
 
 
 class Config
