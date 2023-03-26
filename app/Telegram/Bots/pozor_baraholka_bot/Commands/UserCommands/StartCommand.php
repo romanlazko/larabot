@@ -8,9 +8,9 @@ use App\Telegram\Entities\Update;
 
 class StartCommand extends Command
 {
-    protected static $command = 'start';
+    public static $command = 'start';
 
-    protected static $title = '';
+    public static $title = '';
 
     protected $enabled = true;
 
