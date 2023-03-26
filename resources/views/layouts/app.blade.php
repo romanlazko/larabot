@@ -16,8 +16,8 @@
         <link rel="modulepreload" href="https://14c0-2a02-8308-a006-d600-916d-cabb-e2a2-109e.eu.ngrok.io/build/assets/app-96280e5c.js"/> --}}
         {{-- <link rel="stylesheet" href="https://f0fb-2a02-8308-a006-d600-9814-56f0-5a35-f0bb.eu.ngrok.io/build/assets/app-9f0db517.css"/>
         <script type="module" src="https://f0fb-2a02-8308-a006-d600-9814-56f0-5a35-f0bb.eu.ngrok.io/build/assets/app-96280e5c.js"></script> --}}
-        <link rel="stylesheet" href="https://larabot.rlbot.ru/build/assets/app-9f0db517.css"/>
-        <script type="module" src="https://larabot.rlbot.ru/build/assets/app-96280e5c.js"></script>
+        <link rel="stylesheet" href="https://larabot.rlbot.ru/public/build/assets/app-9f0db517.css"/>
+        <script type="module" src="https://larabot.rlbot.ru/public/build/assets/app-96280e5c.js"></script>
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/f4c6764ec6.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
