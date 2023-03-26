@@ -8,9 +8,9 @@ use App\Telegram\Entities\Update;
 
 class Telegram 
 {
-    private const DEFAULT_COMMAND = '/default';
-    private const DEFAULT_AUTH = 'default';
-    private const MAIN_ADMIN_ID = '544883527';
+    private const DEFAULT_COMMAND   = '/default';
+    private const DEFAULT_AUTH      = 'default';
+    private const MAIN_ADMIN_ID     = '544883527';
 
     /** @var string */
     public string $token;
@@ -19,7 +19,7 @@ class Telegram
     public int $botId;
 
     /** @var string */
-    public string $botFirstName;
+    public string $botUsername;
 
     /** @var Update|null */
     private ?Update $updates = null;
@@ -45,7 +45,7 @@ class Telegram
         $this->botId = (int) $matches[1];
         $this->token = $token;
         BotApi::initialize($this);
-        $this->botFirstName = BotApi::getMe()->getResult()->getUsername();
+        $this->botUsername = BotApi::getMe()->getResult()->getUsername();
 
         DB::initialize($this);
         Config::initialize($this);
@@ -210,7 +210,7 @@ class Telegram
 
     public function getCommandsListClass(): string
     {
-        $commandsListClass  = __NAMESPACE__ . "\\Bots\\{$this->botFirstName}\\Commands\\CommandsList";
+        $commandsListClass  = __NAMESPACE__ . "\\Bots\\{$this->botUsername}\\Commands\\CommandsList";
 
         if (!class_exists($commandsListClass)) {
             $commandsListClass = __NAMESPACE__ . "\\Commands\\CommandsList";
