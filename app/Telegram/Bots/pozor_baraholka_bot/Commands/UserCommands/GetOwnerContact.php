@@ -27,11 +27,11 @@ class GetOwnerContact extends Command
             throw new TelegramUserException("Объявление не найдено");
         });
 
-        if ($announcement->status === 'public') {
+        if ($announcement->status === 'published') {
             $announcement->update([
                 'views' => $announcement->views+1
             ]);
-        }else if ($announcement->status === 'non_actual') {
+        }else if ($announcement->status === 'irrelevant') {
             return BotApi::sendMessage([
                 'text'          => 'Объявление уже не актуально.',
                 'chat_id'       => $updates->getChat()->getId(),
