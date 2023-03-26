@@ -24,7 +24,7 @@ class Config
 
     public static function initialize(Telegram $telegram): void
     {
-        $configsListClass  = __NAMESPACE__ . "\\Bots\\{$telegram->botFirstName}\\Config";
+        $configsListClass  = __NAMESPACE__ . "\\Bots\\{$telegram->botUsername}\\Config";
         if (class_exists($configsListClass)) {
             foreach (self::$config as $key => $value) {
                 if (array_key_exists($key, self::$config) AND array_key_exists($key, $configsListClass::$config)) {

@@ -95,7 +95,6 @@ class ShowMyAnnouncement extends Command
         ], 'announcement_id');
 
         $text = [];
-        $text['views']      = "Количество показов контакта на Вас: *{$announcement->views}*";
         $text['public_at']  = "Дата публикации: *{$announcement->updated_at->format('d.m.Y')}*";
 
         return BotApi::sendMessage([
