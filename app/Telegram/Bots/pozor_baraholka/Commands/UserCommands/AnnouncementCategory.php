@@ -9,7 +9,9 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementCategory extends Command
 {
-    protected $name = 'category';
+    public static $command = 'category';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -48,7 +50,7 @@ class AnnouncementCategory extends Command
                 array("Животные", 'caption', 'animals'),
                 array("Прочее", 'caption', 'other'),
             ],
-            [array('🏠 Главное меню','/menu','')],
+            [array(MenuCommand::$title, MenuCommand::$command, '')],
         ], 'category');
 
         $data = [
@@ -61,8 +63,4 @@ class AnnouncementCategory extends Command
 
         return BotApi::editMessageText($data);
     }
-
-
-
-
 }

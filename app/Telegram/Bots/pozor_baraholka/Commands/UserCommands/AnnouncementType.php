@@ -9,7 +9,9 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementType extends Command
 {
-    protected $name = 'type';
+    public static $command = 'type';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -24,10 +26,10 @@ class AnnouncementType extends Command
 
         $buttons = BotApi::inlineKeyboard([
             [
-                array('Продать', 'product_count', 'sell'),
-                array('Купить', 'photo', 'buy')
+                array('Продать', AnnouncementCount::$command, 'sell'),
+                array('Купить', AnnouncementPhoto::$command, 'buy')
             ],
-            [array('🏠 Главное меню', '/menu', '')]
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ], 'type');
 
         $data = [

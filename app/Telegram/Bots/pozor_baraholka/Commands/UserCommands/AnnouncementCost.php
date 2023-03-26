@@ -9,16 +9,18 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementCost extends Command
 {
-    protected $name = 'cost';
+    public static $command = 'cost';
+
+    public static $title = '';
 
     protected $enabled = true;
 
     public function execute(Update $updates): Response
     {
-        $updates->getFrom()->setExpectation('await_cost');
+        $updates->getFrom()->setExpectation(AwaitCost::$expectation);
         
         $buttons = BotApi::inlineKeyboard([
-            [array('🏠 Главное меню', '/menu', '')]
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ]);
 
         $data = [

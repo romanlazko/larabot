@@ -8,7 +8,9 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementNext extends Command
 {
-    protected $name = 'next';
+    public static $command = 'next';
+
+    public static $title = '';
 
     protected $enabled = true;
 

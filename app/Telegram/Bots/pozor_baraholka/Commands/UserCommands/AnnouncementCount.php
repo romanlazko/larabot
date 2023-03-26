@@ -9,7 +9,9 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementCount extends Command
 {
-    protected $name = 'product_count';
+    public static $command = 'product_count';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -29,10 +31,10 @@ class AnnouncementCount extends Command
     {
         $buttons = BotApi::inlineKeyboard([
             [
-                array('Один', 'photo', 'title'),
-                array('Несколько', 'photo', 'product')
+                array('Один', AnnouncementPhoto::$command, 'title'),
+                array('Несколько', AnnouncementPhoto::$command, 'product')
             ],
-            [array('🏠 Главное меню', '/menu', '')]
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ], 'next');
 
         $data = [

@@ -9,11 +9,14 @@ use App\Telegram\DB;
 use App\Telegram\Entities\Response;
 use App\Telegram\Entities\Update;
 use App\Telegram\Exceptions\TelegramException;
+use App\Telegram\Bots\pozorbottest\Commands\AdminCommands\MenuCommand as AdminMenuCommand;
 use App\Telegram\Exceptions\TelegramUserException;
 
 class AnnouncementPublic extends Command
 {
-    protected $name = 'public';
+    public static $command = 'public';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -28,7 +31,7 @@ class AnnouncementPublic extends Command
         }
 
         if (!$this->createAnnouncement()) {
-            throw new TelegramException("Ошибка сохранения объявления.");
+            throw new TelegramUserException("Ошибка сохранения объявления.");
         }
 
         $this->sendAdminsNotify();
@@ -38,7 +41,7 @@ class AnnouncementPublic extends Command
     private function sendResponse(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array('🏠 Главное меню','menu','')],
+            [array(MenuCommand::$title, MenuCommand::$command, '')],
         ]);
 
         $data = [
@@ -56,7 +59,7 @@ class AnnouncementPublic extends Command
     private function sendAdminsNotify()
     {
         $buttons = BotApi::inlineKeyboard([
-            [array('Показать все объявления','menu','')],
+            [array(AdminMenuCommand::$title, AdminMenuCommand::$command, '')],
         ]);
         BotApi::sendMessages([
             'text'          => "Новое объявление",
@@ -70,7 +73,7 @@ class AnnouncementPublic extends Command
     {
         try {
             $buttons = BotApi::inlineKeyboard([
-                [array('Продолжить', 'public', '')],
+                [array('Продолжить', AnnouncementPublic::$command, '')],
             ]);
 
             return BotApi::editMessageText([

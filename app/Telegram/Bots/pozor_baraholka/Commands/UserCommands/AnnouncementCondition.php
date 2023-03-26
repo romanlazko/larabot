@@ -9,7 +9,9 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementCondition extends Command
 {
-    protected $name = 'condition';
+    public static $command = 'condition';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -17,10 +19,10 @@ class AnnouncementCondition extends Command
     {
         $buttons = BotApi::inlineKeyboard([
             [
-                array('Б/у', 'category', 'used'),
-                array('Новое', 'category', 'new')
+                array('Б/у', AnnouncementCategory::$command, 'used'),
+                array('Новое', AnnouncementCategory::$command, 'new')
             ],
-            [array('🏠 Главное меню', '/menu', '')]
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ], 'condition');
 
         $data = [

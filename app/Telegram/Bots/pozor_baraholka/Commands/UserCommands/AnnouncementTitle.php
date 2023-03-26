@@ -9,7 +9,9 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementTitle extends Command
 {
-    protected $name = 'title';
+    public static $command = 'title';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -18,10 +20,10 @@ class AnnouncementTitle extends Command
         $type   = $this->getConversation()->notes['type'];
         $trade  = $type === 'buy' ? 'купить' : 'продать';
 
-        $updates->getFrom()->setExpectation('await_title');
+        $updates->getFrom()->setExpectation(AwaitTitle::$expectation);
 
         $buttons = BotApi::inlineKeyboard([
-            [array('🏠 Главное меню', '/menu', '')]
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ]);
 
         $data = [

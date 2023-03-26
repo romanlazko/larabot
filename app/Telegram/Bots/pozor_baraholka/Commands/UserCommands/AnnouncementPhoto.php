@@ -9,7 +9,9 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementPhoto extends Command
 {
-    protected $name = 'photo';
+    public static $command = 'photo';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -29,8 +31,8 @@ class AnnouncementPhoto extends Command
         $updates->getFrom()->setExpectation('photo|1');
 
         $buttons = BotApi::inlineKeyboard([
-            [array('Без фотографий', 'next', '')],
-            [array('🏠 Главное меню', '/menu', '')]
+            [array('Без фотографий', AnnouncementNext::$command, '')],
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ]);
 
         $data = [

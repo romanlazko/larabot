@@ -12,7 +12,9 @@ use App\Telegram\Exceptions\TelegramUserException;
 
 class AnnouncementShow extends Command
 {
-    protected $name = 'menu';
+    public static $command = 'show_announcement';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -21,6 +23,14 @@ class AnnouncementShow extends Command
         $announcement = Announcement::findOr($updates->getInlineData()?->getAnnouncementId(), function () {
             throw new TelegramUserException("Объявление не найдено");
         });
+
+        if ($announcement->status === 'published') {
+            throw new TelegramUserException("Объявление уже опубликовано");
+        }
+
+        if ($announcement->status === 'irrelevant') {
+            throw new TelegramUserException("Объявление уже не актуально");
+        }
 
         try {
             if (count($announcement->photo) > 0) {
@@ -86,8 +96,9 @@ class AnnouncementShow extends Command
     private function sendConfirmMessage(Update $updates, Announcement $announcement): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array('Публикуем', 'public', $announcement->id)],
-            [array('🏠 Главное меню', '/menu', '')]
+            [array(AnnouncementPublic::$title, AnnouncementPublic::$command, $announcement->id)],
+            [array(AnnouncementReject::$title, AnnouncementReject::$command, $announcement->id)],
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ], 'announcement_id');
 
         return BotApi::sendMessage([

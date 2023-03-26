@@ -14,8 +14,8 @@ class Config
             'category'          => null,
             'announcement_id'   => null,
         ],
-        'brno_channel'      => '@pozor_baraholka',
-        'prague_channel'    => '@baraholkaprague',
+        'brno'      => '@pozor_baraholka',
+        'prague'    => '@baraholkaprague',
         'admin_ids'         => [
             
         ],

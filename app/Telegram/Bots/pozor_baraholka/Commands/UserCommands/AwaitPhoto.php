@@ -9,7 +9,9 @@ use App\Telegram\Entities\Update;
 
 class AwaitPhoto extends Command
 {
-    protected $name = 'type';
+    public static $command = '/photo\|\d/';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -18,8 +20,8 @@ class AwaitPhoto extends Command
         return $this->savePhoto(function(int $photoCount) use($updates){
             
             $buttons = BotApi::inlineKeyboard([
-                [array('Готово', 'next', '')],
-                [array('🏠 Главное меню', '/menu', '')]
+                [array('Готово', AnnouncementNext::$command, '')],
+                [array(MenuCommand::$title, MenuCommand::$command, '')]
             ]);
         
             $data = [
@@ -48,13 +50,13 @@ class AwaitPhoto extends Command
         if (!$photo = $this->updates->getMessage()?->getPhoto()) {
             $conversation->unsetNote($expectationType);
             $this->handleError("Один из присланных файлов не является фотографией.");
-            return $this->bot->executeCommand('photo');
+            return $this->bot->executeCommand(AnnouncementPhoto::$command);
         }
 
         if ($expectationValue > 9) {
             $conversation->unsetNote($expectationType);
             $this->handleError("Слишком много фотографий.");
-            return $this->bot->executeCommand('photo');
+            return $this->bot->executeCommand(AnnouncementPhoto::$command);
         }
     
         $conversation->update([
