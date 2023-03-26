@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\Telegram\Bots\pozorbottest\Commands\UserCommands;
+namespace App\Telegram\Bots\pozor_baraholka_bot\Commands\UserCommands;
 
 use App\Telegram\BotApi;
-use App\Telegram\Bots\pozorbottest\Models\Announcement;
+use App\Telegram\Bots\pozor_baraholka_bot\Models\Announcement;
 use App\Telegram\Commands\Command;
 use App\Telegram\Entities\Response;
 use App\Telegram\Entities\Update;

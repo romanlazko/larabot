@@ -1,15 +1,15 @@
 <?php 
 
-namespace App\Telegram\Bots\pozorbottest\Commands\UserCommands;
+namespace App\Telegram\Bots\pozor_baraholka_bot\Commands\UserCommands;
 
 use App\Telegram\BotApi;
-use App\Telegram\Bots\pozorbottest\Models\Announcement;
+use App\Telegram\Bots\pozor_baraholka_bot\Models\Announcement;
 use App\Telegram\Commands\Command;
 use App\Telegram\DB;
 use App\Telegram\Entities\Response;
 use App\Telegram\Entities\Update;
 use App\Telegram\Exceptions\TelegramException;
-use App\Telegram\Bots\pozorbottest\Commands\AdminCommands\MenuCommand as AdminMenuCommand;
+use App\Telegram\Bots\pozor_baraholka_bot\Commands\AdminCommands\MenuCommand as AdminMenuCommand;
 use App\Telegram\Exceptions\TelegramUserException;
 
 class AnnouncementPublic extends Command

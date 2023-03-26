@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Telegram\Bots\pozorbottest\Commands\UserCommands;
+namespace App\Telegram\Bots\pozor_baraholka_bot\Commands\UserCommands;
 
 use App\Telegram\BotApi;
 use App\Telegram\Commands\Command;

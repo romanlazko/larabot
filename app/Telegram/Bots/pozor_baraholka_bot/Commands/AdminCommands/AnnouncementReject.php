@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Telegram\Bots\pozorbottest\Commands\AdminCommands;
+namespace App\Telegram\Bots\pozor_baraholka_bot\Commands\AdminCommands;
 
 use App\Telegram\BotApi;
 use App\Telegram\Bots\pozorbottest\Models\Announcement;

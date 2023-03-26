@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Telegram\Bots\pozorbottest\Models;
+namespace App\Telegram\Bots\pozor_baraholka_bot\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

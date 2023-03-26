@@ -1,5 +1,5 @@
 <?php
-namespace App\Telegram\Bots\pozorbottest\Commands;
+namespace App\Telegram\Bots\pozor_baraholka_bot\Commands;
 
 use App\Telegram\Commands\CommandsList as DefaultCommandsList;
 
