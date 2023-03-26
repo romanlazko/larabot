@@ -9,7 +9,9 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementProduct extends Command
 {
-    protected $name = 'product';
+    public static $command = 'product';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -17,26 +19,26 @@ class AnnouncementProduct extends Command
     {
         $buttons = BotApi::inlineKeyboard([
             [
-                array("Одежда", 'caption', 'clothes'),
-                array("Аксессуары", 'caption', 'accessories'),
-                array("Для дома", 'caption', 'for_home'),
+                array("Одежда", AnnouncementCaption::$command, 'clothes'),
+                array("Аксессуары", AnnouncementCaption::$command, 'accessories'),
+                array("Для дома", AnnouncementCaption::$command, 'for_home'),
             ],
             [
-                array("Электроника", 'caption', 'electronics'),
-                array("Спорт", 'caption', 'sport'),
-                array("Мебель", 'caption', 'furniture'),
+                array("Электроника", AnnouncementCaption::$command, 'electronics'),
+                array("Спорт", AnnouncementCaption::$command, 'sport'),
+                array("Мебель", AnnouncementCaption::$command, 'furniture'),
             ],
             [
-                array("Книги", 'caption', 'books'),
-                array("Игры", 'caption', 'games'),
-                array("Авто-мото", 'caption', 'auto'),
+                array("Книги", AnnouncementCaption::$command, 'books'),
+                array("Игры", AnnouncementCaption::$command, 'games'),
+                array("Авто-мото", AnnouncementCaption::$command, 'auto'),
             ],
             [
-                array("Недвижимость", 'caption', 'property'),
-                array("Животные", 'caption', 'animals'),
-                array("Прочее", 'caption', 'other'),
+                array("Недвижимость", AnnouncementCaption::$command, 'property'),
+                array("Животные", AnnouncementCaption::$command, 'animals'),
+                array("Прочее", AnnouncementCaption::$command, 'other'),
             ],
-            [array('🏠 Главное меню','menu','')],
+            [array(MenuCommand::$title, MenuCommand::$command, '')],
         ], 'category');
 
         $data = [

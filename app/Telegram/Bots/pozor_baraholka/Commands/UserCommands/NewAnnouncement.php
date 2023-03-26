@@ -10,6 +10,10 @@ use App\Telegram\Entities\Update;
 
 class NewAnnouncement extends Command
 {
+    public static $command = 'new_announcement';
+
+    public static $title = 'Создать объявление';
+
     protected $enabled = true;
 
     public function execute(Update $updates): Response
@@ -18,10 +22,10 @@ class NewAnnouncement extends Command
 
         $buttons = BotApi::inlineKeyboard([
             [
-                array('Прага', 'type', Config::get('prague_channel')),
-                array('Брно', 'type', Config::get('brno_channel'))
+                array('Прага', AnnouncementType::$command, 'prague'),
+                array('Брно', AnnouncementType::$command, 'brno'),
             ],
-            [array('🏠 Главное меню', MenuCommand::$name, '')]
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ], 'city');
 
         $data = [

@@ -8,7 +8,7 @@ use App\Telegram\Entities\Update;
 
 class AwaitCost extends Command
 {
-    protected $name = 'await_cost';
+    public static $expectation = 'await_cost';
 
     protected $enabled = true;
 
@@ -19,23 +19,23 @@ class AwaitCost extends Command
 
         if ($text === null) {
             $this->handleError("*Пришлите пожалуйста стоимость в виде текстового сообщения.*");
-            return $this->bot->executeCommand('cost');
+            return $this->bot->executeCommand(AnnouncementCost::$command);
         }
 
         if (iconv_strlen($text) > 12){
             $this->handleError("*Слишком много символов*");
-            return $this->bot->executeCommand('cost');
+            return $this->bot->executeCommand(AnnouncementCost::$command);
         }
 
         if (!is_numeric($text)){
             $this->handleError("*Стоимость должна быть указана только цыфрами*");
-            return $this->bot->executeCommand('cost');
+            return $this->bot->executeCommand(AnnouncementCost::$command);
         }
 
         $conversation->update([
             'cost' => $text,
         ]);
 
-        return $this->bot->executeCommand('condition');
+        return $this->bot->executeCommand(AnnouncementCondition::$command);
     }
 }

@@ -8,7 +8,7 @@ use App\Telegram\Entities\Update;
 
 class AwaitTitle extends Command
 {
-    protected $name = 'title';
+    public static $expectation = 'await_title';
 
     protected $enabled = true;
 
@@ -19,12 +19,12 @@ class AwaitTitle extends Command
 
         if ($text === null) {
             $this->handleError("*Пришлите пожалуйста заголовок в виде текста.*");
-            return $this->bot->executeCommand('title');
+            return $this->bot->executeCommand(AnnouncementTitle::$command);
         }
 
         if (iconv_strlen($text) > 31){
             $this->handleError("*Слишком много символов*");
-            return $this->bot->executeCommand('title');
+            return $this->bot->executeCommand(AnnouncementTitle::$command);
         }
 
         $conversation->notes['title'] = $text;
@@ -33,6 +33,6 @@ class AwaitTitle extends Command
             'title' => $text
         ]);
         
-        return $this->bot->executeCommand('cost');
+        return $this->bot->executeCommand(AnnouncementCost::$command);
     }
 }

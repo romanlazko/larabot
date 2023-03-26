@@ -11,7 +11,9 @@ use App\Telegram\Exceptions\TelegramUserException;
 
 class AnnouncementShow extends Command
 {
-    protected $name = 'show';
+    public static $command = 'show';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -77,8 +79,8 @@ class AnnouncementShow extends Command
     private function sendConfirmMessage(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array('Публикуем', 'public', '')],
-            [array('🏠 Главное меню', '/menu', '')]
+            [array('Публикуем', AnnouncementPublic::$command, '')],
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ]);
 
         return BotApi::sendMessage([

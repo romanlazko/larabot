@@ -10,7 +10,9 @@ use App\Telegram\Entities\Update;
 
 class MenuCommand extends Command
 {
-    protected $name = 'menu';
+    public static $command = '/menu';
+
+    public static $title = 'Все объявления';
 
     protected $enabled = true;
 
@@ -20,7 +22,7 @@ class MenuCommand extends Command
 
         $buttons = [];
         foreach ($announcements as $announcement) {
-            $buttons[] = [array($announcement->title ?? $announcement->caption, 'show_announcement', $announcement->id)];
+            $buttons[] = [array($announcement->title ?? $announcement->caption, AnnouncementShow::$command, $announcement->id)];
         }
 
         $buttons = count($buttons) > 0 ? BotApi::inlineKeyboard($buttons, 'announcement_id') : null;  

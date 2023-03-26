@@ -9,14 +9,16 @@ use App\Telegram\Entities\Update;
 
 class RullesCommand extends Command
 {
-    protected $name = 'rulles';
+    public static $command = 'rulles';
+
+    public static $title = 'Правила';
 
     protected $enabled = true;
 
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array('🏠 Главное меню', MenuCommand::$name, '')]
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ]);
 
         $data = [

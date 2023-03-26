@@ -11,7 +11,9 @@ use App\Telegram\Exceptions\TelegramUserException;
 
 class GetOwnerContact extends Command
 {
-    protected $name = 'get_owner_contact';
+    public static $command = 'get_owner_contact';
+
+    public static $title = '';
 
     protected $pattern = "/^(\/start\s)(announcement)=(\d+)$/";
 
@@ -37,7 +39,7 @@ class GetOwnerContact extends Command
         }
 
         $buttons = BotApi::inlineKeyboardWithLink([
-            'text'  => "Контакт на владельца", 
+            'text'  => "👤 Контакт на автора", 
             'url'   => "tg://user?id={$announcement->user_id}"
         ]);
         return BotApi::sendMessage([
@@ -46,8 +48,4 @@ class GetOwnerContact extends Command
             'chat_id'       => $updates->getChat()->getId(),
         ]);
     }
-
-
-
-
 }

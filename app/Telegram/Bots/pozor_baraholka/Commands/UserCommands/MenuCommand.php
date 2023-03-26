@@ -9,16 +9,18 @@ use App\Telegram\Entities\Update;
 
 class MenuCommand extends Command
 {
-    protected static $name = '/menu';
+    public static $command = '/menu';
+
+    public static $title = '🏠 Главное меню';
 
     protected $enabled = true;
 
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array('Создать объявление', 'new_announcement', '')],
-            [array('Мои объявления', 'my_announcements', '')],
-            [array('Правила', 'rulles', '')]
+            [array(NewAnnouncement::$title, NewAnnouncement::$command, '')],
+            [array(MyAnnouncements::$title, MyAnnouncements::$command, '')],
+            [array(RullesCommand::$title, RullesCommand::$command, '')]
         ]);
 
         $data = [

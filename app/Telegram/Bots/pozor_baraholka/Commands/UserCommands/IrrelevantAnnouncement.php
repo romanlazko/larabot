@@ -9,9 +9,11 @@ use App\Telegram\Entities\Response;
 use App\Telegram\Entities\Update;
 use App\Telegram\Exceptions\TelegramUserException;
 
-class NonActualAnnouncement extends Command
+class IrrelevantAnnouncement extends Command
 {
-    protected $name = 'menu';
+    public static $command = 'irrelevant';
+
+    public static $title = 'Не актуально';
 
     protected $enabled = true;
 
@@ -22,7 +24,7 @@ class NonActualAnnouncement extends Command
         });
 
         $announcement->update([
-            'status' => 'non_actual'
+            'status' => 'irrelevant'
         ]);
 
         BotApi::answerCallbackQuery([
@@ -31,8 +33,6 @@ class NonActualAnnouncement extends Command
             'show_alert'        => true
         ]);
 
-        return $this->bot->executeCommand('/menu');
+        return $this->bot->executeCommand(MenuCommand::$command);
     }
-    
-    
 }

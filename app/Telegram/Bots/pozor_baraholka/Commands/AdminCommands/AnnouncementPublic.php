@@ -3,6 +3,9 @@
 namespace App\Telegram\Bots\pozorbottest\Commands\AdminCommands;
 
 use App\Telegram\BotApi;
+use App\Telegram\Bots\pozorbottest\Commands\UserCommands\ShowMyAnnouncement as UserShowAnnouncement;
+use App\Telegram\Bots\pozorbottest\Commands\UserCommands\MenuCommand as UserMenuCommand;
+use App\Telegram\Config;
 use App\Telegram\Bots\pozorbottest\Models\Announcement;
 use App\Telegram\Commands\Command;
 use App\Telegram\Entities\Response;
@@ -12,7 +15,9 @@ use App\Telegram\Exceptions\TelegramUserException;
 
 class AnnouncementPublic extends Command
 {
-    protected $name = 'public';
+    public static $command = 'public';
+
+    public static $title = 'Публикуем';
 
     protected $enabled = true;
 
@@ -22,6 +27,14 @@ class AnnouncementPublic extends Command
             throw new TelegramUserException("Объявление не найдено");
         });
 
+        if ($announcement->status === 'published') {
+            throw new TelegramUserException("Объявление уже опубликовано");
+        }
+
+        if ($announcement->status === 'irrelevant') {
+            throw new TelegramUserException("Объявление уже не актуально");
+        }
+
         try {
             if (count($announcement->photo) > 0) {
                 $response = $this->sendMessageWithMedia($announcement);
@@ -30,16 +43,22 @@ class AnnouncementPublic extends Command
             }
             if ($response->getOk()) {
                 $announcement->update([
-                    'status' => 'public'
-                ]);
-                BotApi::sendMessage([
-                    'chat_id'       => $announcement->user_id,
-                    'text'          => "Ваше объявление опубликовано", 
-                    'parse_mode'    => 'HTML',
+                    'status' => 'published'
                 ]);
 
+                $buttons = BotApi::inlineKeyboard([
+                    [array($announcement->title ?? $announcement->caption, UserShowAnnouncement::$command, $announcement->id)],
+                    [array(UserMenuCommand::$title, UserMenuCommand::$command, '')]
+                ], 'announcement_id');
+
+                BotApi::sendMessage([
+                    'chat_id'       => $announcement->user_id,
+                    'text'          => "Ваше объявление опубликовано",
+                    'reply_markup'  => $buttons,
+                    'parse_mode'    => 'HTML',
+                ]);
+                return $this->bot->executeCommand(MenuCommand::$command);
             }
-            return $this->bot->executeCommand('/menu');
         }catch (TelegramException $exception) {
             throw new TelegramUserException("Ошибка публикации: {$exception->getMessage()}");
         }
@@ -71,8 +90,6 @@ class AnnouncementPublic extends Command
 
         $text['contact'] = "<a href='https://t.me/pozorbottestbot?start=announcement={$announcement->id}'>🔗Контакт</a>";
 
-
-
         $category_arr = [
             'clothes'       => '#одежда',
             'accessories'   => '#аксессуары',
@@ -99,15 +116,15 @@ class AnnouncementPublic extends Command
         $media = BotApi::setInputMediaPhoto($announcement->photo->pluck('file_id'), $this->createAdText($announcement), 'HTML');
         
         return BotApi::sendMediaGroup([
-            'chat_id'               => $announcement->city,
-            'media'                 => $media,
+            'chat_id' => Config::get($announcement->city),
+            'media'   => $media,
         ]);
     }
 
     private function sendMessageWithoutMedia(Announcement $announcement): Response
     {
         return BotApi::sendMessage([
-            'chat_id'       => $announcement->city,
+            'chat_id'       => Config::get($announcement->city),
             'text'          => $this->createAdText($announcement), 
             'parse_mode'    => 'HTML',
         ]);

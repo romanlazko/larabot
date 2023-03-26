@@ -13,7 +13,9 @@ use App\Telegram\Telegram;
 
 abstract class Command 
 {
-    protected $name;
+    public static $command;
+
+    public static $title;
 
     protected $enabled;
 
@@ -35,8 +37,7 @@ abstract class Command
             return $this->execute($this->updates);
         }
         catch( TelegramUserException $exception ){
-            $this->handleError($exception->getMessage());
-            return $this->bot->executeCommand('/menu');
+            return $this->handleError($exception->getMessage());
         }
     }
 

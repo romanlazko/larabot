@@ -12,6 +12,7 @@ class CommandsList extends DefaultCommandsList
             AdminCommands\AnnouncementShow::class       => ['show_announcement'],
             AdminCommands\AnnouncementPublic::class     => ['public'],
             UserCommands\GetOwnerContact::class         => "/^(\/start\s)(announcement)=(\d+)$/",
+            AdminCommands\AnnouncementReject::class     => ['reject'],
         ],
         'user'      => [
             UserCommands\StartCommand::class            => ['/start', 'start'],
@@ -38,12 +39,11 @@ class CommandsList extends DefaultCommandsList
             
             UserCommands\MyAnnouncements::class         => ['my_announcements'],
             UserCommands\ShowMyAnnouncement::class      => ['show_announcement'],
-            UserCommands\NonActualAnnouncement::class   => ['non_actual'],
+            UserCommands\IrrelevantAnnouncement::class  => ['irrelevant'],
         ],
         'supergroup' => [
         ],
         'default'   => [
-
         ]
     ];
 

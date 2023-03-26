@@ -11,6 +11,10 @@ use App\Telegram\Entities\Update;
 
 class MyAnnouncements extends Command
 {
+    public static $command = 'my_announcements';
+
+    public static $title = 'Мои объявления';
+
     protected $enabled = true;
 
     public function execute(Update $updates): Response
@@ -18,12 +22,12 @@ class MyAnnouncements extends Command
         $user_id = $updates->getFrom()->getId();
         $announcements = Announcement::where([
             'user_id' => $user_id,
-            'status' => 'public',
+            'status' => 'published',
         ])->paginate(10);
 
         $buttons = [];
         foreach ($announcements as $announcement) {
-            $buttons[] = [array($announcement->title ?? $announcement->caption, 'show_announcement', $announcement->id)];
+            $buttons[] = [array($announcement->title ?? $announcement->caption, ShowMyAnnouncement::$command, $announcement->id)];
         }
 
         if (count($buttons) === 0) {

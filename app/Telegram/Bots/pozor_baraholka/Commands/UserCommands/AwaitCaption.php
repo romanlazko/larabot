@@ -8,7 +8,7 @@ use App\Telegram\Entities\Update;
 
 class AwaitCaption extends Command
 {
-    protected $name = 'await_caption';
+    public static $expectation = 'await_caption';
 
     protected $enabled = true;
 
@@ -19,19 +19,19 @@ class AwaitCaption extends Command
 
         if ($text === null) {
             $this->handleError("*Пришлите пожалуйста описание в виде текста.*");
-            return $this->bot->executeCommand('caption');
+            return $this->bot->executeCommand(AnnouncementCaption::$command);
         }
 
         if (iconv_strlen($text) > 800){
             $this->handleError("*Слишком много символов*");
-            return $this->bot->executeCommand('caption');
+            return $this->bot->executeCommand(AnnouncementCaption::$command);
         }
 
         $conversation->update([
             'caption' => $text,
         ]);
         
-        return $this->bot->executeCommand('show');
+        return $this->bot->executeCommand(AnnouncementShow::$command);
     }
 
 

@@ -9,7 +9,9 @@ use App\Telegram\Entities\Update;
 
 class AnnouncementCaption extends Command
 {
-    protected $name = 'caption';
+    public static $command = 'caption';
+
+    public static $title = '';
 
     protected $enabled = true;
 
@@ -36,10 +38,10 @@ class AnnouncementCaption extends Command
 
     private function sendResponse(Update $updates, string $text)
     {
-        $updates->getFrom()->setExpectation('await_caption');
+        $updates->getFrom()->setExpectation(AwaitCaption::$expectation);
 
         $buttons = BotApi::inlineKeyboard([
-            [array('🏠 Главное меню', '/menu', '')]
+            [array(MenuCommand::$title, MenuCommand::$command, '')]
         ]);
 
         $data = [

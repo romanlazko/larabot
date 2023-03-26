@@ -8,12 +8,14 @@ use App\Telegram\Entities\Update;
 
 class StartCommand extends Command
 {
-    protected $name = 'start';
+    protected static $command = 'start';
+
+    protected static $title = '';
 
     protected $enabled = true;
 
     public function execute(Update $updates): Response
     {
-        return $this->bot->executeCommand('/menu');
+        return $this->bot->executeCommand(MenuCommand::$command);
     }
 }
