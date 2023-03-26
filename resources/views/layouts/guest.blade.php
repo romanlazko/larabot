@@ -14,8 +14,8 @@
         {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
         {{-- <link rel="preload" as="style" href="https://14c0-2a02-8308-a006-d600-916d-cabb-e2a2-109e.eu.ngrok.io/build/assets/app-9f0db517.css"/> --}}
         {{-- <link rel="modulepreload" href="https://14c0-2a02-8308-a006-d600-916d-cabb-e2a2-109e.eu.ngrok.io/build/assets/app-96280e5c.js"/> --}}
-        <link rel="stylesheet" href="https://larabot.rlbot.ru/public/build/assets/app-9f0db517.css"/>
-        <script type="module" src="https://larabot.rlbot.ru/public/build/assets/app-96280e5c.js"></script>
+        <link rel="stylesheet" href="https://larabot.rlbot.ru/build/assets/app-9f0db517.css"/>
+        <script type="module" src="https://larabot.rlbot.ru/build/assets/app-96280e5c.js"></script>
     </head>
     {{-- <body class="font-sans text-gray-900 antialiased">
         @include('layouts.navigation')
