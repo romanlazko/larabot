@@ -283,7 +283,7 @@ class DB
             'join_by_request' => $chat->getJoinByRequest(),
             'description' => $chat->getDescription(),
             'invite_link' => $chat->getInviteLink(),
-            'pinned_message' => self::selectMessage($chat->getPinnedMessage())?->id,
+            'pinned_message' => self::selectMessage($chat->getPinnedMessage()),
             // 'permissions' => $chat->getPermissions(),
             'slow_mode_delay' => $chat->getSlowModeDelay(),
             'message_auto_delete_time' => $chat->getMessageAutoDeleteTime(),

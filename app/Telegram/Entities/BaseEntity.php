@@ -25,7 +25,7 @@ abstract class BaseEntity
 		// }
     }
 
-    public function map(array $data): void
+    public function map(array $data)
 	{
 		foreach (static::$map as $key => $item) {
 			if (isset($data[$key]) && (!is_array($data[$key]) || (is_array($data[$key]) && !empty($data[$key])))) {
@@ -98,12 +98,12 @@ abstract class BaseEntity
      *
      * @return mixed
      */
-    public function getProperty(?string $property_name, $default = null): ?string
+    public function getProperty(?string $property_name, $default = null)
     {
         return $this->$property_name ?? $default;
     }
 
-    public function __call($method, $args): ?string
+    public function __call($method, $args)
     {
         $property_name = mb_strtolower(ltrim(preg_replace('/[A-Z]/', '_$0', substr($method, 3)), '_'));
 
