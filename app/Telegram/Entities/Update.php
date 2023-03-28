@@ -49,14 +49,14 @@ class Update extends BaseEntity
         return $this->getCallbackQuery()?->getData() ?? InlineData::fromRequest();
     }
 
-    public function getFrom(): ?User
+    public function getFrom()
     {
         $object = $this->getProperty($this->getUpdateType());
 
         return $object?->getFrom();
     }
 
-    public function getChat(): ?Chat
+    public function getChat()
     {
         $object = $this->getProperty($this->getUpdateType());
 

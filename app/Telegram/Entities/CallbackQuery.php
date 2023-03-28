@@ -16,8 +16,8 @@ class CallbackQuery extends BaseEntity
         'game_short_name'	=> true,
     ];
 
-    public function getCommand(): ?string
+    public function getCommand()
     {
-        return $this->getData()?->getButton();
+        return $this->getData()->getButton();
     }
 }
