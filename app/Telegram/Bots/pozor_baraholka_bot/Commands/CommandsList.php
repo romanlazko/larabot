@@ -5,7 +5,7 @@ use App\Telegram\Commands\CommandsList as DefaultCommandsList;
 
 class CommandsList extends DefaultCommandsList
 {
-    static private $commands = [
+    static protected $commands = [
         'admin'     => [
             AdminCommands\StartCommand::class           => ['/start', 'start'],
             AdminCommands\MenuCommand::class            => ['/menu', 'menu', 'Главное меню'],

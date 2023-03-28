@@ -22,7 +22,7 @@ class User extends BaseEntity
         'supports_inline_queries'       => true,
     ];
 
-    public function getExpectation()
+    public function getExpectation(): ?string
     {
         if ($this->expectation === null) {
             $this->expectation = DB::getExpectation($this->getId());
@@ -31,7 +31,7 @@ class User extends BaseEntity
         
     }
 
-    public function setExpectation($expectation = null)
+    public function setExpectation($expectation = null): void
     {
         $this->expectation = DB::setExpectation($this->getId(), $expectation);
     }

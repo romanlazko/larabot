@@ -27,25 +27,37 @@ class GetOwnerContact extends Command
             throw new TelegramUserException("Объявление не найдено");
         });
 
+        if ($announcement->status === 'irrelevant') {
+            throw new TelegramUserException('Объявление уже не актуально.');
+        }
+
         if ($announcement->status === 'published') {
             $announcement->update([
                 'views' => $announcement->views+1
             ]);
-        }else if ($announcement->status === 'irrelevant') {
-            return BotApi::sendMessage([
-                'text'          => 'Объявление уже не актуально.',
-                'chat_id'       => $updates->getChat()->getId(),
-            ]);
         }
 
+        return $this->sendAnnouncementContact($announcement);
+    }
+
+    private function sendAnnouncementContact($announcement)
+    {
         $buttons = BotApi::inlineKeyboardWithLink([
             'text'  => "👤 Контакт на автора", 
             'url'   => "tg://user?id={$announcement->user_id}"
         ]);
+
+        $text = [];
+
+        $text[] = "<b>Вот контакт на автора объявления:</b>";
+        
+        $text[] = $announcement->title ?? $announcement->caption;
+
         return BotApi::sendMessage([
-            'text'          => 'Вот контакт на автора объявления',
+            'text'          => implode("\n\n", $text),
             'reply_markup'  => $buttons,
-            'chat_id'       => $updates->getChat()->getId(),
+            'chat_id'       => $this->updates->getChat()->getId(),
+            'parse_mode'    => 'HTML',
         ]);
     }
 }
