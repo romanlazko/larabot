@@ -88,7 +88,7 @@ class AnnouncementPublic extends Command
             $text['cost'] = "<i>Цена:</i> {$announcement->cost} CZK";
         }
 
-        $text['contact'] = "<a href='https://t.me/pozor_baraholka_bot?start=announcement={$announcement->id}'>🔗Контакт</a>" . "<i>В боте нажми ❝Начать❞ что бы получить контакт.</i>";
+        $text['contact'] = "<a href='https://t.me/pozor_baraholka_bot?start=announcement={$announcement->id}'>🔗Контакт</a>";
 
         $category_arr = [
             'clothes'       => '#одежда',
