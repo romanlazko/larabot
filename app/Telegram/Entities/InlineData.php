@@ -8,17 +8,6 @@ class InlineData extends BaseEntity
 {
     public $inline_data = [];
 
-    // public static $map = [
-    //     'button'            => null,
-    //     'city'              => null,
-    //     'type' => null,
-    //     'next' => null,
-    //     'condition' => null,
-    //     'category' => null,
-    //     'announcement_id' => null,
-    //     'temp' => null
-    // ];
-
     public static function fromRequest($data = '')
     {
         $data = explode('|', $data);
@@ -29,7 +18,7 @@ class InlineData extends BaseEntity
         
     }
 
-    public function map(array $data)
+    public function map(array $data): void
     {
         $i=0;
         $map = Config::get('inline_data');
