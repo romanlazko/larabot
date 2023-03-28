@@ -24,12 +24,8 @@ class AnnouncementReject extends Command
             throw new TelegramUserException("Объявление не найдено");
         });
 
-        if ($announcement->status === 'published') {
+        if ($announcement->status === 'published' OR $announcement->status === 'irrelevant') {
             throw new TelegramUserException("Объявление уже опубликовано");
-        }
-
-        if ($announcement->status === 'irrelevant') {
-            throw new TelegramUserException("Объявление уже не актуально");
         }
 
         try {

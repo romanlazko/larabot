@@ -34,7 +34,6 @@ class AnnouncementPublic extends Command
             throw new TelegramUserException("Ошибка сохранения объявления.");
         }
 
-        $this->sendAdminsNotify();
         return $this->sendResponse($updates);
     }
 
