@@ -28,18 +28,26 @@ class AnnouncementReject extends Command
             throw new TelegramUserException("Объявление уже опубликовано");
         }
 
+        $announcement->update([
+            'status' => 'rejected'
+        ]);
+        
+        $this->notifyRejectedAd($announcement);
+
+        return $this->bot->executeCommand(MenuCommand::$command);
+    }
+
+    private function notifyRejectedAd(Announcement $announcement)
+    {
         try {
-            $announcement->update([
-                'status' => 'rejected'
-            ]);
-            BotApi::sendMessage([
+            return BotApi::sendMessage([
                 'chat_id'       => $announcement->user_id,
                 'text'          => "Ваше объявление отклонено", 
                 'parse_mode'    => 'HTML',
             ]);
-            return $this->bot->executeCommand(MenuCommand::$command);
-        }catch (TelegramException $exception) {
-            throw new TelegramUserException("Ошибка публикации: {$exception->getMessage()}");
+        }
+        catch (TelegramException $exception) {
+            throw new TelegramUserException("Ошибка отправки уведомления пользователю: {$exception->getMessage()}");
         }
     }
 }

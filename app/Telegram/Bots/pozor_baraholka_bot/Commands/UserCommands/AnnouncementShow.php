@@ -21,12 +21,15 @@ class AnnouncementShow extends Command
     {
         $notes  = $this->getConversation()->notes;
 
-        if (isset($notes['photo'])) {
-            $this->sendMessageWithMedia($updates, $notes);
-        } else {
-            $this->sendMessageWithoutMedia($updates, $notes);
+        try {
+            (isset($notes['photo']))
+                ? $this->sendMessageWithMedia($updates, $notes)
+                : $this->sendMessageWithoutMedia($updates, $notes);
         }
-
+        catch (TelegramException $exception) {
+            throw new TelegramUserException("Ошибка публикации: {$exception->getMessage()}");
+        }
+        
         return $this->sendConfirmMessage($updates);
     }
 

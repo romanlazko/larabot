@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 
     <div class="sticky inset-y-0 z-10">
