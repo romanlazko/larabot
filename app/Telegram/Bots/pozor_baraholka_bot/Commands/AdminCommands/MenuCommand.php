@@ -28,7 +28,7 @@ class MenuCommand extends Command
         $buttons = count($buttons) > 0 ? BotApi::inlineKeyboard($buttons, 'announcement_id') : null;  
 
         return BotApi::returnInline([
-            'text'          => "Все объявления: ". Announcement::count(),
+            'text'          => "Все объявления: ". Announcement::where('status', 'new')->count(),
             'chat_id'       => $updates->getChat()->getId(),
             'message_id'    => $updates->getCallbackQuery()?->getMessage()->getMessageId(),
             'reply_markup'  => $buttons,
