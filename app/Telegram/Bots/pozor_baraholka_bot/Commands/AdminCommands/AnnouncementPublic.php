@@ -36,35 +36,23 @@ class AnnouncementPublic extends Command
         }
 
         try {
-            if (count($announcement->photo) > 0) {
-                $response = $this->sendMessageWithMedia($announcement);
-            } else {
-                $response = $this->sendMessageWithoutMedia($announcement);
-            }
-            if ($response->getOk()) {
-                $announcement->update([
-                    'status' => 'published'
-                ]);
-
-                $buttons = BotApi::inlineKeyboard([
-                    [array($announcement->title ?? $announcement->caption, UserShowAnnouncement::$command, $announcement->id)],
-                    [array(UserMenuCommand::$title, UserMenuCommand::$command, '')]
-                ], 'announcement_id');
-
-                BotApi::sendMessage([
-                    'chat_id'       => $announcement->user_id,
-                    'text'          => "Ваше объявление опубликовано",
-                    'reply_markup'  => $buttons,
-                    'parse_mode'    => 'HTML',
-                ]);
-                return $this->bot->executeCommand(MenuCommand::$command);
-            }
+            (count($announcement->photo) > 0)
+                ? $this->sendMessageWithMedia($announcement)
+                : $this->sendMessageWithoutMedia($announcement);
         }catch (TelegramException $exception) {
             throw new TelegramUserException("Ошибка публикации: {$exception->getMessage()}");
         }
+
+        $announcement->update([
+            'status' => 'published'
+        ]);
+
+        $this->notifyPublishedAd($announcement);
+
+        return $this->bot->executeCommand(MenuCommand::$command);
     }
 
-    private function createAdText($announcement): string
+    private function createAdText(Announcement $announcement): string
     {
         $text = [];
         
@@ -113,7 +101,7 @@ class AnnouncementPublic extends Command
 
     private function sendMessageWithMedia(Announcement $announcement): Response
     {
-        $media = BotApi::setInputMediaPhoto($announcement->photo->pluck('file_id'), $this->createAdText($announcement), 'HTML');
+        $media = BotApi::setInputMediaPhoto($announcement->photo->pluck('file_id')->take(9), $this->createAdText($announcement), 'HTML');
         
         return BotApi::sendMediaGroup([
             'chat_id' => Config::get($announcement->city),
@@ -128,5 +116,25 @@ class AnnouncementPublic extends Command
             'text'          => $this->createAdText($announcement), 
             'parse_mode'    => 'HTML',
         ]);
+    }
+
+    private function notifyPublishedAd(Announcement $announcement): void
+    {
+        try {
+            $buttons = BotApi::inlineKeyboard([
+                [array($announcement->title ?? $announcement->caption, UserShowAnnouncement::$command, $announcement->id)],
+                [array(UserMenuCommand::$title, UserMenuCommand::$command, '')]
+            ], 'announcement_id');
+    
+            BotApi::sendMessage([
+                'chat_id'       => $announcement->user_id,
+                'text'          => "Ваше объявление опубликовано",
+                'reply_markup'  => $buttons,
+                'parse_mode'    => 'HTML',
+            ]);
+        }
+        catch (TelegramException $exception) {
+            throw new TelegramUserException("Ошибка отправки уведомления пользователю: {$exception->getMessage()}");
+        }
     }
 }

@@ -33,17 +33,15 @@ class AnnouncementShow extends Command
         }
 
         try {
-            if (count($announcement->photo) > 0) {
-                $this->sendMessageWithMedia($updates, $announcement);
-            } else {
-                $this->sendMessageWithoutMedia($updates, $announcement);
-            }
-
-            return $this->sendConfirmMessage($updates, $announcement);
+            (count($announcement->photo) > 0)
+                ? $this->sendMessageWithMedia($updates, $announcement)
+                : $this->sendMessageWithoutMedia($updates, $announcement);
         }
         catch (TelegramException $exception) {
             throw new TelegramUserException("Ошибка публикации: {$exception->getMessage()}");
         }
+        
+        return $this->sendConfirmMessage($updates, $announcement);
     }
     
     private function createAdText($announcement): string
@@ -111,7 +109,7 @@ class AnnouncementShow extends Command
 
     private function sendMessageWithMedia(Update $updates, Announcement $announcement): Response
     {
-        $media  = BotApi::setInputMediaPhoto($announcement->photo->pluck('file_id'), $this->createAdText($announcement), 'HTML');
+        $media  = BotApi::setInputMediaPhoto($announcement->photo->pluck('file_id')->take(9), $this->createAdText($announcement), 'HTML');
         
         return BotApi::sendMediaGroup([
             'chat_id'               => $updates->getChat()->getId(),
