@@ -47,6 +47,8 @@ class AnnouncementShow extends Command
     private function createAdText($announcement): string
     {
         $text = [];
+
+        $text[] = $this->getUserContact('HTML', $announcement->user_id);
         
         $text['type'] = $announcement->type === 'buy' ? "#куплю" : "#продам";
 
