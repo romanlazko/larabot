@@ -114,7 +114,7 @@ class AnnouncementPublic extends Command
 
         if (array_key_exists('photo', $notes)) {
             foreach ($notes['photo'] as $id => $file_id) {
-                $announcement->photo()->create([
+                $announcement->photo()->updateOrCreate([
                     'file_id' => $file_id,
                 ]);
             }
